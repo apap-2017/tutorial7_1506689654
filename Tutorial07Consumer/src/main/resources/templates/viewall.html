@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>View All Students</title>
+        <link href="../../css/bootstrap.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-1.12.4.js"> </script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js
+        "></script>
+        <script type="text/javascript" charset="utf8"
+                src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+
+    </head>
+    <body>
+        <div th:replace="fragments/fragment :: header"></div>
+        <h1>All Students</h1>
+
+        <table id="table_id" class="ui celled table" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>NPM</th>
+                    <th>Name</th>
+                    <th>GPA</th>
+                    <th>Cum laude</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student,iterationStatus: ${students}">
+
+                    <td th:text="'No. ' + ${iterationStatus.count}">No. 1</td>
+                    <td th:text="'NPM = ' + ${student.npm}">Student NPM</td>
+                    <td th:text="'Name = ' + ${student.name}">Student Name</td>
+                    <td th:text="'GPA = ' + ${student.gpa}">Student GPA</td>
+                    <td th:text="${student.gpa} >= 3.49 ? 'Cum Laude!' : 'Sangat Memuaskan'"></td>
+                    <td>
+                        <a th:href="'/student/delete/'+ ${student.npm}">Delete Data</a>
+                    </td>
+                    <td>
+                        <a th:href="'/student/update/'+ ${student.npm}">Update Data</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <SCRIPT>
+            $(document).ready(function() {
+                $('#viewall').DataTable();
+            } );
+        </SCRIPT>
+
+        <div th:replace="fragments/fragment :: footer"></div>
+
+    </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>View All Students</title>
+        <link href="../../css/bootstrap.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-1.12.4.js"> </script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js
+        "></script>
+        <script type="text/javascript" charset="utf8"
+                src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+
+    </head>
+    <body>
+        <div th:replace="fragments/fragment :: header"></div>
+        <h1>All Courses</h1>
+
+        <table id="table_id" class="ui celled table" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>SKS</th>
+                    <th>Mahasiswa yang mengambil</th>
+
+                </tr>
+             </thead>
+            <tbody>
+                <tr th:each="course, iterationStatus : ${courses}">
+
+                    <td th:text="${iterationStatus.count}"></td>
+                    <td th:text="${course.id_course}"></td>
+                    <td th:text="${course.name}"></td>
+                    <td th:text="${course.credits}">Student GPA</td>
+                    <td>
+                        <ul th:each="student, iterationStatus: ${course.students}">
+                            <li th:text="${student.npm} + ' - ' + ${student.name}">Nama Kuliah - X sks</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <SCRIPT>
+            $(document).ready(function() {
+                $('#viewall').DataTable();
+            } );
+        </SCRIPT>
+
+        <div th:replace="fragments/fragment :: footer"></div>
+
+    </body>
+</html>
